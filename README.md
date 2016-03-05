@@ -18,7 +18,7 @@ You will need to install:
     git clone https://github.com/JamborJan/rstudio-sandstorm
     export PATH=$(pwd)/vagrant-spk:$PATH
     cd rstudio-sandstorm
-    vagrant-spk up
+    vagrant-spk vm up
     vagrant-spk dev
 
 Then visit [http://localhost:8787](http://localhost:8787/) in a web browser. At the moment you need to login with:
