@@ -4,22 +4,75 @@
 # - https://docs.sandstorm.io/en/latest/vagrant-spk/customizing/#setupsh
 
 set -euo pipefail
-# This is the ideal place to do things like:
-#
-#    export DEBIAN_FRONTEND=noninteractive
-#    apt-get update
-#    apt-get install -y nginx nodejs nodejs-legacy python2.7 mysql-server
-#
-# If the packages you're installing here need some configuration adjustments,
-# this is also a good place to do that:
-#
-#    sed --in-place='' \
-#            --expression 's/^user www-data/#user www-data/' \
-#            --expression 's#^pid /run/nginx.pid#pid /var/run/nginx.pid#' \
-#            --expression 's/^\s*error_log.*/error_log stderr;/' \
-#            --expression 's/^\s*access_log.*/access_log off;/' \
-#            /etc/nginx/nginx.conf
+export DEBIAN_FRONTEND=noninteractive
 
-# By default, this script does nothing.  You'll have to modify it as
-# appropriate for your application.
+#
+# Configure sources and install packages
+#
+apt-get update
+# we want to install some stuff from https sources
+apt-get install -y apt-transport-https
+# we want to install the latest RStudio
+cat >> /etc/apt/sources.list <<EOF
+
+# latest RStudio sources
+deb https://cran.rstudio.com/bin/linux/debian jessie-cran3/
+
+EOF
+apt-get install -y --force-yes --no-install-recommends nginx r-base r-base-dev gdebi-core libcurl4-openssl-dev libssl-dev
+# This part needs to be updated when a new version is avaiable
+wget https://download2.rstudio.org/rstudio-server-0.99.892-amd64.deb
+gdebi -n -q rstudio-server-0.99.892-amd64.deb
+# Start command: $sudo /usr/lib/rstudio-server/bin/rserver
+
+# RStudio Server Config
+#cat > /etc/rstudio/rserver.conf <<EOF
+## Server Configuration File
+#www-address=127.0.0.1
+#EOF
+# Set up nginx config
+cat >  /etc/nginx/sites-enabled/default <<EOF
+http {
+  map \$http_upgrade \$connection_upgrade {
+      default upgrade;
+      ''      close;
+    }
+  server {
+      listen 8000 default_server;
+      listen [::]:8000 default_server ipv6only=on;
+
+      location / {
+        proxy_pass http://localhost:8787;
+        proxy_redirect http://localhost:8787/ \$scheme://\$host/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \$connection_upgrade;
+        proxy_read_timeout 20d;
+      }
+  }
+}
+EOF
+service nginx stop
+systemctl disable nginx
+# patch nginx conf to not bother trying to setuid, since we're not root
+sed --in-place='' \
+        --expression 's/^user www-data/#user www-data/' \
+        --expression 's#^pid /run/nginx.pid#pid /var/run/nginx.pid#' \
+        --expression 's/^\s*error_log.*/error_log stderr;/' \
+        --expression 's/^\s*access_log.*/access_log off;/' \
+        /etc/nginx/nginx.conf
+
+#
+# Configuration of the system
+#
+# groupadd ruser
+su -c "groupadd ruser"
+# useradd ruser
+su -c "useradd ruser -s /bin/bash -m -g ruser"
+# passwd ruser
+chpasswd << 'END'
+ruser:ruser
+END
+
+# Bye bye
 exit 0

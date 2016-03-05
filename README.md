@@ -21,6 +21,11 @@ You will need to install:
     vagrant-spk up
     vagrant-spk dev
 
-Then visit [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/) in a web browser.
+Then visit [http://localhost:8787](http://localhost:8787/) in a web browser. At the moment you need to login with:
+
+    login: ruser
+    password: ruser
+
+This version of the app is not yet usable via [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/).
 
 Note: when you want to fork this repo and create actual app packages for the app store you would need either the original app key or create a new one and make your own app.
