@@ -21,6 +21,6 @@ You will need to install:
     vagrant-spk up
     vagrant-spk dev
 
-    visit [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/) in a web browser
+Then visit [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/) in a web browser.
 
 Note: when you want to fork this repo and create actual app packages for the app store you would need either the original app key or create a new one and make your own app.
