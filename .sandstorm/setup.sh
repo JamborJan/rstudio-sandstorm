@@ -74,5 +74,17 @@ chpasswd << 'END'
 ruser:ruser
 END
 
+#
+# Install R packages
+#
+
+# RText Tools for classification
+su - -c "R -e \"install.packages('RTextTools', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"library("RTextTools", lib.loc="/usr/local/lib/R/site-library")\""
+
+# Install Shiny in system-wide library
+# su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""
+# R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
+
 # Bye bye
 exit 0
