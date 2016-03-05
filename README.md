@@ -51,22 +51,23 @@ Ensure that the RTextTools Package is enabled (bottom left side of the main wind
 	You can read your CSV file with the ```read_data```function into the ```data``` object. Ensure to enter the right name of your file and the right delimiter e.g. semicolon or the pipe symbol.
 
 	```
-	training_data <- read_data("/vagrant/training_data.csv",type="csv",sep=";")
+	training_data <- read_data("/opt/app/example_data/classification/training_data.csv",type="csv",sep=";")
 	```
 
 3. Process your file
+
 	Now you can process your data. It would be ridiculous to believe I can describe in this small README how you should do text analytics, you need to know what you do or should grab a book and study. So I do only one thing here: I show the commands explained in the [quick guide of RTextTools](http://journal.r-project.org/archive/2013-1/collingwood-jurka-boydstun-etal.pdf) so that you can quickly run through the steps and see the result.
 
 	First we create a document matrix. Note: ```training_data$text``` is the name of the object where you have imported your data before and the column name you want to analyze. You can set also a language. The other options are copy & paste from the quick start guide.
 
 	```
-	training_doc_matrix <- create_matrix(training_data$text, language="italian", removeNumbers=TRUE, stemWords=TRUE, removeSparseTerms=.998)
+	training_doc_matrix <- create_matrix(training_data$text, language="english", removeNumbers=TRUE, stemWords=TRUE, removeSparseTerms=.998)
 	```
 
-	Now we create a container from that. The matrix is referenced. Again we see ```training_data$class``` which references your data and a column labeling your text and thus classifying it. ```trainSize=1:1000``` means the first 1'000 lines will be used for training and ```testSize=1001:1572``` means these lines will be used for verifying. ```virgin=FALSE```indicates that we are dealing with pre-classifyed data.
+	Now we create a container from that. The matrix is referenced. Again we see ```training_data$class``` which references your data and a column labeling your text and thus classifying it. ```trainSize=1:20``` means the first 1'000 lines will be used for training and ```testSize=21:30``` means these lines will be used for verifying. ```virgin=FALSE```indicates that we are dealing with pre-classifyed data.
 
 	```
-	training_container <- create_container(training_doc_matrix, training_data$class, trainSize=1:1000, testSize=1001:1572, virgin=FALSE)
+	training_container <- create_container(training_doc_matrix, training_data$class, trainSize=1:20, testSize=21:30, virgin=FALSE)
 	```
 
 	There are several algorithms available, for pros and cons I refer to my previous statement: buy books and study :-) I only show one example with a simple algorithm from the [quick guide from the RTextTools](http://journal.r-project.org/archive/2013-1/collingwood-jurka-boydstun-etal.pdf) guys. So we use the support vector machine algorithm (SVM).
@@ -80,17 +81,17 @@ Ensure that the RTextTools Package is enabled (bottom left side of the main wind
 	Same as before for the training. Now we have a CSV with only one column "text".
 
 	```
-	classify_data <- read_data("/vagrant/classify_data.csv",type="csv",sep=";")
+	classify_data <- read_data("/opt/app/example_data/classification/classify_data.csv",type="csv",sep=";")
 	```
 	Now we do the matrix again:
 	```
-	classify_doc_matrix <- create_matrix(classify_data$text, language="italian", removeNumbers=TRUE, stemWords=TRUE, removeSparseTerms=.998)
+	classify_doc_matrix <- create_matrix(classify_data$text, language="english", removeNumbers=TRUE, stemWords=TRUE, removeSparseTerms=.998)
 	```
 
 	and the container but this time we have a virgin file. So ```trainSize```is null and ```testSize```is all.
 
 	```
-	classify_container <- create_container(classify_doc_matrix, classify_data$class, trainSize=NULL, testSize=1:1572, virgin=TRUE)
+	classify_container <- create_container(classify_doc_matrix, classify_data$class, trainSize=NULL, testSize=1:4, virgin=TRUE)
 	```
 
 5. Classify data
