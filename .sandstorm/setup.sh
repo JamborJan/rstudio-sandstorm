@@ -80,7 +80,9 @@ END
 
 # RText Tools for classification
 su - -c "R -e \"install.packages('RTextTools', repos='http://cran.rstudio.com/')\""
-su - -c "R -e \"library("RTextTools", lib.loc="/usr/local/lib/R/site-library")\""
+
+# deepnet: deep learning toolkit in R
+su - -c "R -e \"install.packages('deepnet', repos='http://cran.rstudio.com/')\""
 
 # Install Shiny in system-wide library
 # su - -c "R -e \"install.packages('shiny', repos='http://cran.rstudio.com/')\""

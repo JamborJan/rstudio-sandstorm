@@ -116,8 +116,11 @@ Ensure that the RTextTools Package is enabled (bottom left side of the main wind
 
 Using deep learning algorithms
 ==============================
-Needs to be done ...
+This example shows how to use deep learning algorithms to analyze long texts.
 
+Ensure that the deepnet Package is enabled (bottom left side of the main window the 3rd tab).
+
+... examples will follow ...
 
 Pending tasks
 =============
