@@ -18,15 +18,27 @@ set -euo pipefail
 #     directory structure
 
 #
+# Install R packages
+#
+
+# Install Shiny in system-wide library
+sudo R -e "install.packages('shiny', destdir='/usr/local/lib/R/site-library/shiny/examples/01_hello', repos='http://cran.rstudio.com/')"
+
+# RText Tools for classification
+sudo R -e "install.packages('RTextTools', repos='http://cran.rstudio.com/')"
+#sudo R -e "library('RTextTools', lib.loc='/usr/local/lib/R/site-library')"
+
+# deepnet: deep learning toolkit in R
+sudo R -e "install.packages('deepnet', repos='http://cran.rstudio.com/')"
+#sudo R -e "library('deepnet', lib.loc='/usr/local/lib/R/site-library')"
+
+#
 # Install some test data for Shiny Server and load it
 #
-su - -c "R -e \"library('shiny', lib.loc='/usr/local/lib/R/site-library')\""
+# Load Shiny
+R -e "library('shiny', lib.loc='/usr/local/lib/R/site-library')"
 # Markdown Support
-su - -c "R -e \"install.packages('rmarkdown', repos='http://cran.rstudio.com/')\""
-# Simple Hello Shiny App
-su - -c "R -e \"shiny::runGitHub('shiny-examples', 'rstudio', subdir = '001-hello')\""
-# The Shiny Server will listen on http://127.0.0.1:3174
-
+sudo R -e "install.packages('rmarkdown', repos='http://cran.rstudio.com/')"
 
 # By default, this script does nothing.  You'll have to modify it as
 # appropriate for your application.

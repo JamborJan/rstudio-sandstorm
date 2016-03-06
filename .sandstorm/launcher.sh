@@ -26,14 +26,17 @@ set -euo pipefail
 #     to think about such things.
 #   * Launching other daemons your app needs (e.g. mysqld, redis-server, etc.)
 
-# Start nginx.
-/usr/sbin/nginx -g "daemon off;"
-
 # Start RStudio Server
-rstudio-server start
+#rstudio-server start
 
 # Start Shiny Server
-service shiny-server start
+#service shiny-server start
+
+# Load simple Hello Shiny App
+cp -R /usr/local/lib/R/site-library/shiny/examples/01_hello /var/shiny-server/
+R -e "shiny::runApp('01_hello')"
+#R -e "shiny::runGitHub('shiny-examples', 'rstudio', subdir = '001-hello')"
+
 
 # By default, this script does nothing.  You'll have to modify it as
 # appropriate for your application.

@@ -1,6 +1,8 @@
 RStudio for Sandstorm
 =====================
 
+The intent of this package is to be an example to build your own RStudio / Shiny app for Sandstorm.
+
 The package is done with [vagrant-spk](https://github.com/sandstorm-io/vagrant-spk), a tool designed to help app developers package apps for [Sandstorm](https://sandstorm.io).
 
 You can follow the following steps to make your own package or to contribute.
