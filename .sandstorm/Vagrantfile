@@ -11,7 +11,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Base on the Sandstorm snapshots of the official Debian 8 (jessie) box.
-  config.vm.box = "sandstorm/debian-jessie64"
+  # config.vm.box = "sandstorm/debian-jessie64"
+  # Or on Ubuntu ...
+  config.vm.box = "ubuntu/trusty64"
 
   if Vagrant.has_plugin?("vagrant-vbguest") then
     # vagrant-vbguest is a Vagrant plugin that upgrades
@@ -19,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # guest. If you have the vagrant-vbguest plugin, then it
     # needs to know how to compile kernel modules, etc., and so
     # we give it this hint about operating system type.
-    config.vm.guest = "debian"
+    config.vm.guest = "ubuntu"
   end
 
   # We forward port 6080, the Sandstorm web port, so that developers can
@@ -28,6 +30,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 6080, host: 6080
   # RServer
   config.vm.network :forwarded_port, guest: 8787, host: 8787
+  # Shiny Server
+  config.vm.network :forwarded_port, guest: 3838, host: 3838
 
   # Use a shell script to "provision" the box. This installs Sandstorm using
   # the bundled installer.

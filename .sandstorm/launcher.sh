@@ -26,6 +26,15 @@ set -euo pipefail
 #     to think about such things.
 #   * Launching other daemons your app needs (e.g. mysqld, redis-server, etc.)
 
+# Start nginx.
+/usr/sbin/nginx -g "daemon off;"
+
+# Start RStudio Server
+rstudio-server start
+
+# Start Shiny Server
+service shiny-server start
+
 # By default, this script does nothing.  You'll have to modify it as
 # appropriate for your application.
 cd /opt/app
