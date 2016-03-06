@@ -43,9 +43,9 @@ cat > /etc/shiny-server/shiny-server.conf <<EOF
 # Instruct Shiny Server to run applications as the user "shiny"
 run_as shiny;
 
-# Define a server that listens on port 8000
+# Define a server that listens on port 3838
 server {
-  listen 8000;
+  listen 3838;
 
   # Define a location at the base URL
   location / {
@@ -90,9 +90,9 @@ END
 #
 
 # Stop RStudio Server
-rstudio-server stop
+#rstudio-server stop
 # Stop Shiny Server
-service shiny-server stop
+#service shiny-server stop
 
 # Bye bye
 exit 0

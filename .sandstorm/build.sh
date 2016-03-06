@@ -22,7 +22,8 @@ set -euo pipefail
 #
 
 # Install Shiny in system-wide library
-sudo R -e "install.packages('shiny', destdir='/usr/local/lib/R/site-library/shiny/examples/01_hello', repos='http://cran.rstudio.com/')"
+#sudo R -e "install.packages('shiny', destdir='/usr/local/lib/R/site-library/shiny/examples/01_hello', repos='http://cran.rstudio.com/')"
+sudo R -e "install.packages('shiny', repos='http://cran.rstudio.com/')"
 
 # RText Tools for classification
 sudo R -e "install.packages('RTextTools', repos='http://cran.rstudio.com/')"

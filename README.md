@@ -23,16 +23,30 @@ You will need to install:
     vagrant-spk vm up
     vagrant-spk dev
 
-Then visit [http://localhost:8787](http://localhost:8787/) in a web browser. At the moment you need to login with:
+This version of the app is not yet usable via [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/).
+
+Note: when you want to fork this repo and create actual app packages for the app store you would need either the original app key or create a new one and make your own app.
+
+When you build your app
+=======================
+
+You can share files between the host box's repository folder and guest box's ```/opt/app``` folder.
+
+To test stuff it makes sense to not stop the services in ```setup.sh``` and use them via ports described in ```Vagrantfile```. This is currently the case and you can access the services without starting an app instance:
+
+RStudio: visit [http://localhost:8787](http://localhost:8787/) in a web browser & login with:
 
     login: ruser
     password: ruser
 
-You can share files between the host box's repository folder and guest box's ```/opt/app``` folder.
+You can run this to start a Shiny Test app:
 
-This version of the app is not yet usable via [http://local.sandstorm.io:6080/](http://local.sandstorm.io:6080/).
+```
+if (!require('shiny')) install.packages("shiny")
+shiny::runGitHub("shiny-examples", "rstudio", subdir = "001-hello")
+```
 
-Note: when you want to fork this repo and create actual app packages for the app store you would need either the original app key or create a new one and make your own app.
+Shiny Server: visit [http://localhost:3838](http://localhost:3838/) in a web browser.
 
 Classifiaction of text snippets
 ===============================
